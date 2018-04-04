@@ -52,13 +52,19 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <properties>
+                <environment>dev</environment>
+            </properties>
             <build>
                 <finalName>cms-dev</finalName>
             </build>
         </profile>
 
         <profile>
-            <id>release</id>
+            <id>production</id>
+            <properties>
+                <environment>production</environment>
+            </properties>
             <build>
                 <finalName>cms</finalName>
             </build>
