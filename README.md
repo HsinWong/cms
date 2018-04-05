@@ -5,5 +5,6 @@
 + HTML, CSS, Bootstrap(SB Admin)
 + jQuery
 + Thymeleaf
-+ SpringMVC
-+ SpringBoot
++ Spring MVC
++ Spring Boot
++ Spring Security
