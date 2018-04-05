@@ -12,4 +12,10 @@ public class IndexController {
         model.addAttribute("message", "Hello World!");
         return "index";
     }
+
+    @RequestMapping("/login")
+    public String login(Model model) {
+        model.addAttribute("message", "Hello World!");
+        return "login";
+    }
 }
