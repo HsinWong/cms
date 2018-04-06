@@ -21,7 +21,8 @@ public class User implements Serializable {
 
     private String mobile;
 
-    private String sex;
+    @Enumerated(EnumType.STRING)
+    private Sex sex;
 
     @Enumerated(EnumType.STRING)
     private State state;
@@ -82,11 +83,11 @@ public class User implements Serializable {
         this.mobile = mobile;
     }
 
-    public String getSex() {
+    public Sex getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Sex sex) {
         this.sex = sex;
     }
 
@@ -128,6 +129,10 @@ public class User implements Serializable {
 
     public void setUpdateTime(LocalDate updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public enum Sex {
+        MALE, FEMALE
     }
 
     public enum State {
