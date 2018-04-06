@@ -10,13 +10,13 @@
     <title th:text="#{title}">XX管理系统</title>
 
     <!-- Bootstrap core CSS-->
-    <link th:href="@{vendor/bootstrap/css/bootstrap.min.css}" href="../static/vendor/bootstrap/css/bootstrap.css"
+    <link th:href="@{assets/vendor/bootstrap/css/bootstrap.min.css}" href="../static/assets/vendor/bootstrap/css/bootstrap.css"
           rel="stylesheet">
     <!-- Custom fonts for this template-->
-    <link th:href="@{vendor/font-awesome/css/font-awesome.min.css}"
-          href="../static/vendor/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link th:href="@{assets/vendor/font-awesome/css/font-awesome.min.css}"
+          href="../static/assets/vendor/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
     <!-- Custom styles for this template-->
-    <link th:href="@{vendor/sb-admin/css/sb-admin.min.css}" href="../static/vendor/sb-admin/css/sb-admin.css"
+    <link th:href="@{assets/vendor/sb-admin/css/sb-admin.min.css}" href="../static/assets/vendor/sb-admin/css/sb-admin.css"
           rel="stylesheet">
 
     <style>
@@ -299,20 +299,22 @@
                 <div class="modal-body">单击“退出”按钮注销你的登录状态。</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-                    <a class="btn btn-primary" th:href="@{/logout}" href="login.html">退出</a>
+                    <form th:action="@{/logout}" method="post">
+                        <input class="btn btn-primary" type="submit" value="退出">
+                    </form>
                 </div>
             </div>
         </div>
     </div>
     <!-- Bootstrap core JavaScript-->
-    <script th:src="@{vendor/jquery/jquery.min.js}" src="../static/vendor/jquery/jquery.js"></script>
-    <script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}"
-            src="../static/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script th:src="@{assets/vendor/jquery/jquery.min.js}" src="../static/assets/vendor/jquery/jquery.js"></script>
+    <script th:src="@{assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"
+            src="../static/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <!-- Core plugin JavaScript-->
-    <script th:src="@{vendor/jquery-easing/jquery.easing.min.js}"
-            src="../static/vendor/jquery-easing/jquery.easing.js"></script>
+    <script th:src="@{assets/vendor/jquery-easing/jquery.easing.min.js}"
+            src="../static/assets/vendor/jquery-easing/jquery.easing.js"></script>
     <!-- Custom scripts for all pages-->
-    <script th:src="@{vendor/sb-admin/js/sb-admin.min.js}" src="../static/vendor/sb-admin/js/sb-admin.js"></script>
+    <script th:src="@{assets/vendor/sb-admin/js/sb-admin.min.js}" src="../static/assets/vendor/sb-admin/js/sb-admin.js"></script>
 </div>
 </body>
 
