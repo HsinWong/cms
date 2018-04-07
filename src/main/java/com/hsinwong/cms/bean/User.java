@@ -2,7 +2,7 @@ package com.hsinwong.cms.bean;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity(name = "sys_user")
 public class User implements Serializable {
@@ -29,11 +29,11 @@ public class User implements Serializable {
 
     private Long createBy;
 
-    private LocalDate createTime;
+    private LocalDateTime createTime;
 
     private Long updateBy;
 
-    private LocalDate updateTime;
+    private LocalDateTime updateTime;
 
     public Long getId() {
         return id;
@@ -107,11 +107,11 @@ public class User implements Serializable {
         this.createBy = createBy;
     }
 
-    public LocalDate getCreateTime() {
+    public LocalDateTime getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(LocalDate createTime) {
+    public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
 
@@ -123,11 +123,11 @@ public class User implements Serializable {
         this.updateBy = updateBy;
     }
 
-    public LocalDate getUpdateTime() {
+    public LocalDateTime getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(LocalDate updateTime) {
+    public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
     }
 
