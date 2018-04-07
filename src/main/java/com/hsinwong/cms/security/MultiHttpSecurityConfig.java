@@ -25,8 +25,11 @@ public class MultiHttpSecurityConfig {
     @Autowired
     private MessageSource messageSource;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Bean
-    public UserDetailsService userDetailsService(UserRepository userRepository) {
+    public UserDetailsService userDetailsService() {
         return username -> {
             Optional<User> user = userRepository.findByUsername(username);
             if (user.isPresent()) {
@@ -58,6 +61,10 @@ public class MultiHttpSecurityConfig {
 
     @Configuration
     public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+
+        @Autowired
+        private UserDetailsService userDetailsService;
+
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http
@@ -67,7 +74,9 @@ public class MultiHttpSecurityConfig {
                     .and()
                     .formLogin().loginPage("/login").permitAll()
                     .and()
-                    .logout().permitAll();
+                    .logout().permitAll()
+                    .and()
+                    .rememberMe().userDetailsService(userDetailsService).tokenValiditySeconds(30);
         }
     }
 }
