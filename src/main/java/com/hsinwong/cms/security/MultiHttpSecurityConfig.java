@@ -1,26 +1,45 @@
-package com.hsinwong.cms.config;
+package com.hsinwong.cms.security;
 
+import com.hsinwong.cms.MessageConstants;
+import com.hsinwong.cms.bean.User;
+import com.hsinwong.cms.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Locale;
+import java.util.Optional;
 
 @EnableWebSecurity
 public class MultiHttpSecurityConfig {
 
+    @Autowired
+    private MessageSource messageSource;
+
     @Bean
-    public UserDetailsService userDetailsService() throws Exception {
-        // ensure the passwords are encoded properly
-        User.UserBuilder users = User.withDefaultPasswordEncoder();
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(users.username("user").password("password").roles("USER").build());
-        manager.createUser(users.username("admin").password("password").roles("USER", "ADMIN").build());
-        return manager;
+    public UserDetailsService userDetailsService(UserRepository userRepository) {
+        return username -> {
+            Optional<User> user = userRepository.findByUsername(username);
+            if (user.isPresent()) {
+                return new UserDetail(user.get());
+            } else {
+                throw new UsernameNotFoundException(messageSource.getMessage(MessageConstants.USERNAME_NOT_FOUND, new String[]{username}, Locale.getDefault()));
+            }
+        };
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @Configuration
