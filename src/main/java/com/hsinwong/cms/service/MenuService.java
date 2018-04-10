@@ -10,9 +10,10 @@ import java.util.*;
 @Service
 public class MenuService {
 
+    public static final Long ROOT_ID = 0L;
+
     @Autowired
     private MenuRepository menuRepository;
-
 
     public List<Menu> getMenus() {
         List<Menu> menus = menuRepository.findByState(Menu.State.NORMAL);
@@ -36,10 +37,18 @@ public class MenuService {
                 }
             });
 
-            menus = parentIdSubMenusMap.get(0L);
+            menus = parentIdSubMenusMap.get(ROOT_ID);
         }
 
         return menus;
+    }
+
+    public Optional<Menu> getFullMenu(Long id) {
+        Optional<Menu> menu = menuRepository.findById(id);
+        if (menu.isPresent() && !ROOT_ID.equals(menu.get().getParentId())) {
+            menu.get().setParentMenu(getFullMenu(menu.get().getParentId()).orElse(null));
+        }
+        return menu;
     }
 
 }

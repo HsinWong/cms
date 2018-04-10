@@ -44,6 +44,9 @@ public class Menu implements Serializable {
     @Transient
     private List<Menu> subMenus;
 
+    @Transient
+    private Menu parentMenu;
+
     public Long getId() {
         return id;
     }
@@ -170,6 +173,14 @@ public class Menu implements Serializable {
 
     public void setSubMenus(List<Menu> subMenus) {
         this.subMenus = subMenus;
+    }
+
+    public Menu getParentMenu() {
+        return parentMenu;
+    }
+
+    public void setParentMenu(Menu parentMenu) {
+        this.parentMenu = parentMenu;
     }
 
     public enum State {

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="header">
+    <h1>[[${menu.name}]]</h1>
+    <ol class="breadcrumb">
+        <li><a href="javascript:void(0);"><i class="fa" th:classappend="'fa-' + ${menu.parentMenu.icon}"></i>
+            [[${menu.parentMenu.name}]]</a></li>
+        <li class="active">[[${menu.name}]]</li>
+    </ol>
+</div>
+
+</body>
+</html>
