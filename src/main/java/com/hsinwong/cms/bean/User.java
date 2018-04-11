@@ -1,5 +1,8 @@
 package com.hsinwong.cms.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -13,6 +16,7 @@ public class User implements Serializable {
 
     private String username;
 
+    @JsonIgnore
     private String password;
 
     private String nickname;
@@ -132,10 +136,32 @@ public class User implements Serializable {
     }
 
     public enum Sex {
-        MALE, FEMALE
+        MALE("男"), FEMALE("女");
+
+        @JsonValue
+        private String value;
+
+        Sex(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 
     public enum State {
-        NORMAL, DELETED, DISABLED, FROZEN
+        NORMAL("正常"), DELETED("已删除"), DISABLED("禁用"), FROZEN("冻结");
+
+        @JsonValue
+        private String value;
+
+        State(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 }

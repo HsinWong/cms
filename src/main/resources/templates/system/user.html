@@ -3,10 +3,89 @@
 
 <!-- Main content -->
 <section class="content container-fluid">
-
-    <!--------------------------
-      | Your Page Content Here |
-      -------------------------->
-
+    <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table class="hook-datatable table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th data-data="username">用户名</th>
+                    <th data-data="nickname">昵称</th>
+                    <th data-data="email">邮箱地址</th>
+                    <th data-data="mobile">手机号</th>
+                    <th data-data="sex">性别</th>
+                    <th data-data="state">状态</th>
+                    <th data-orderable="false">操作</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
 </section>
 <!-- /.content -->
+
+<div class="modal modal-warning fade" id="freezeModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">警告</h4>
+            </div>
+            <div class="modal-body">
+                <p>是否停用该用户？</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">取消</button>
+                <button type="button" class="hook-confirm btn btn-outline">确认</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<script>
+    $(function () {
+        var $table = $('.hook-datatable').DataTable({
+            ajax: {
+                "url": "api/users",
+                "dataSrc": "_embedded.users"
+            },
+            "columnDefs": [{
+                "targets": -1,
+                "data": null,
+                "defaultContent":
+                "<div class=\"btn-group\">\n" +
+                "  <button type=\"button\" class=\"hook-modify btn btn-info btn-xs btn-flat\" title=\"修改\"><i class=\"fa fa-pencil\"></i></button>\n" +
+                "  <button type=\"button\" class=\"hook-freeze btn btn-warning btn-xs btn-flat\" title=\"停用\"><i class=\"glyphicon glyphicon-ban-circle\"></i></button>\n" +
+                "  <button type=\"button\" class=\"hook-delete btn btn-danger btn-xs btn-flat\" title=\"删除\"><i class=\"fa fa-trash-o\"></i></button>\n" +
+                "</div>"
+            }]
+        });
+
+        $('.hook-datatable tbody').on('click', '.hook-freeze', function () {
+            var data = $table.row($(this).parents('tr')).data();
+
+            $("#freezeModal").modal("show");
+
+            $("#freezeModal").on('click', '.hook-confirm', function () {
+                axios.patch(data._links.self.href, {
+                    "state": "正常"
+                })
+                    .then(function (response) {
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+                $("#freezeModal").modal("hide");
+            });
+
+        });
+    });
+</script>

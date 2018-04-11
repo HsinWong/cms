@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/ionicons/2.0.0/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/datatables/1.10.15/css/dataTables.bootstrap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="https://cdn.bootcss.com/admin-lte/2.4.2/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -47,7 +51,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue fixed sidebar-mini">
 <div class="wrapper">
 
     <!-- Main Header -->
@@ -176,7 +180,8 @@ desired effect
             Just do it!
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2018 <a href="https://github.com/HsinWong" target="_blank">HsinWong</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2018 <a href="https://github.com/HsinWong" target="_blank">HsinWong</a>.</strong> All
+        rights reserved.
     </footer>
 
     <!-- Add the sidebar's background. This div must be placed
@@ -191,14 +196,48 @@ desired effect
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="https://cdn.bootcss.com/datatables/1.10.15/js/jquery.dataTables.js"></script>
+<script src="https://cdn.bootcss.com/datatables/1.10.15/js/dataTables.bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="https://cdn.bootcss.com/admin-lte/2.4.2/js/adminlte.min.js"></script>
+<!-- axios -->
+<script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
 <script th:inline="javascript">
     $(function () {
+        axios.defaults.headers.post['[(${_csrf.headerName})]'] = '[(${_csrf.token})]';
+        axios.defaults.headers.put['[(${_csrf.headerName})]'] = '[(${_csrf.token})]';
+        axios.defaults.headers.patch['[(${_csrf.headerName})]'] = '[(${_csrf.token})]';
+        axios.defaults.headers.delete['[(${_csrf.headerName})]'] = '[(${_csrf.token})]';
+
+        $.extend(true, $.fn.dataTable.defaults, {
+            "autoWidth": false,
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            language: {
+                processing: "正在加载……",
+                search: "检索：",
+                zeroRecords: "未检索到匹配的记录",
+                lengthMenu: "每页 _MENU_ 条",
+                info: "当前第 _START_ - _END_ 条，共 _TOTAL_ 条",
+                infoEmpty: "当前第 0 - 0 条，共 0 条",
+                infoFiltered: "（共检索 _MAX_ 条）",
+                paginate: {
+                    first: "第一页",
+                    previous: "上一页",
+                    next: "下一页",
+                    last: "最后一页"
+                }
+            }
+        });
+
         var $seletedMenu;
 
         $(".hood-menu").on("click", function () {
@@ -210,10 +249,18 @@ desired effect
             $(this).closest("li").toggleClass("active");
             $(this).closest("li").parent().closest("li").toggleClass("active");
 
-            $("#page").load("[(@{/load})]", {
-                menuId: $(this).data("menu-id"),
-                "[(${_csrf.parameterName})]": "[(${_csrf.token})]"
-            });
+            axios.get('[(@{/load})]', {
+                params: {
+                    menuId: $(this).data("menu-id")
+                }
+            })
+                .then(function (response) {
+                    $("#page").empty();
+                    $("#page").append(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         });
     });
 </script>

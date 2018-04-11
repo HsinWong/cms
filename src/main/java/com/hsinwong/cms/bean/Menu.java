@@ -1,5 +1,7 @@
 package com.hsinwong.cms.bean;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -184,6 +186,17 @@ public class Menu implements Serializable {
     }
 
     public enum State {
-        NORMAL, DELETED, DISABLED
+        NORMAL("正常"), DELETED("已删除"), DISABLED("禁用");
+
+        @JsonValue
+        private String value;
+
+        State(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 }

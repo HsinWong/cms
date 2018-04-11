@@ -4,10 +4,10 @@ import com.hsinwong.cms.MessageConstants;
 import com.hsinwong.cms.bean.User;
 import com.hsinwong.cms.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -46,24 +46,13 @@ public class MultiHttpSecurityConfig {
     }
 
     @Configuration
-    @Order(1)
-    public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            http
-                    .antMatcher("/api/**")
-                    .authorizeRequests()
-                    .anyRequest().hasRole("ADMIN")
-                    .and()
-                    .httpBasic();
-        }
-    }
-
-    @Configuration
     public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
         @Autowired
         private UserDetailsService userDetailsService;
+
+        @Value("${hsinwong.security.remeberMe.tokenValiditySeconds}")
+        private Integer tokenValiditySeconds;
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
@@ -76,7 +65,7 @@ public class MultiHttpSecurityConfig {
                     .and()
                     .logout().permitAll()
                     .and()
-                    .rememberMe().userDetailsService(userDetailsService).tokenValiditySeconds(30);
+                    .rememberMe().userDetailsService(userDetailsService).tokenValiditySeconds(tokenValiditySeconds);
         }
     }
 }
