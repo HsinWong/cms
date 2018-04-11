@@ -4,11 +4,10 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity(name = "sys_menu")
-public class Menu implements Serializable {
+public class Menu extends Base implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,14 +33,6 @@ public class Menu implements Serializable {
     private State state;
 
     private String description;
-
-    private Long createBy;
-
-    private LocalDateTime createTime;
-
-    private Long updateBy;
-
-    private LocalDateTime updateTime;
 
     @Transient
     private List<Menu> subMenus;
@@ -135,38 +126,6 @@ public class Menu implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Long getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(Long createBy) {
-        this.createBy = createBy;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public Long getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(Long updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
     }
 
     public List<Menu> getSubMenus() {

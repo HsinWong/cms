@@ -5,10 +5,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Entity(name = "sys_user")
-public class User implements Serializable {
+public class User extends Base implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,14 +29,6 @@ public class User implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private State state;
-
-    private Long createBy;
-
-    private LocalDateTime createTime;
-
-    private Long updateBy;
-
-    private LocalDateTime updateTime;
 
     public Long getId() {
         return id;
@@ -101,38 +92,6 @@ public class User implements Serializable {
 
     public void setState(State state) {
         this.state = state;
-    }
-
-    public Long getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(Long createBy) {
-        this.createBy = createBy;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public Long getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(Long updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
     }
 
     public enum Sex {
