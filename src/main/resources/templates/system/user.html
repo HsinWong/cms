@@ -26,27 +26,19 @@
 </section>
 <!-- /.content -->
 
-<div class="modal modal-warning fade" id="freezeModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">警告</h4>
-            </div>
-            <div class="modal-body">
-                <p>是否停用该用户？</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">取消</button>
-                <button type="button" class="hook-confirm btn btn-outline">确认</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
+<div xmlns:th="http://www.thymeleaf.org"
+     th:replace="common :: modal('modal-warning', 'freezeModal', '警告', ~{::#freezeModalBody})">
+    <div id="freezeModalBody">
+        <p>确认停用该用户？</p>
     </div>
-    <!-- /.modal-dialog -->
 </div>
-<!-- /.modal -->
+
+<div xmlns:th="http://www.thymeleaf.org"
+     th:replace="common :: modal('modal-warning', 'deleteModal', '警告', ~{::#deleteModalBody})">
+    <div id="deleteModalBody">
+        <p>确认删除该用户？</p>
+    </div>
+</div>
 
 <script>
     $(function () {
@@ -64,7 +56,19 @@
                 "  <button type=\"button\" class=\"hook-freeze btn btn-warning btn-xs btn-flat\" title=\"停用\"><i class=\"glyphicon glyphicon-ban-circle\"></i></button>\n" +
                 "  <button type=\"button\" class=\"hook-delete btn btn-danger btn-xs btn-flat\" title=\"删除\"><i class=\"fa fa-trash-o\"></i></button>\n" +
                 "</div>"
-            }]
+            }],
+            dom:
+            "<'row'<'col-sm-7'B><'col-sm-5'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-3'l><'col-sm-3'i><'col-sm-6'p>>",
+            buttons: [
+                {
+                    text: '新增',
+                    action: function (e, dt, node, config) {
+                        alert('Button activated');
+                    }
+                }
+            ]
         });
 
         $('.hook-datatable tbody').on('click', '.hook-freeze', function () {
@@ -74,7 +78,7 @@
 
             $("#freezeModal").on('click', '.hook-confirm', function () {
                 axios.patch(data._links.self.href, {
-                    "state": "正常"
+                    "state": "冻结"
                 })
                     .then(function (response) {
                         console.log(response);
