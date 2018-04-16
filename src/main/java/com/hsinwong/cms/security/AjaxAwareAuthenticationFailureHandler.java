@@ -14,6 +14,6 @@ public class AjaxAwareAuthenticationFailureHandler implements AuthenticationFail
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException e) throws IOException {
-        response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+        response.sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
     }
 }
