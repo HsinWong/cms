@@ -24,7 +24,7 @@ public final class JwtTokenUtils {
             token = JWT.create()
                     .withClaim("userId", userId)
                     .withIssuedAt(Date.from(Instant.now()))
-                    .withExpiresAt(Date.from(Instant.now().plus(30, ChronoUnit.MINUTES)))
+                    .withExpiresAt(Date.from(Instant.now().plus(8, ChronoUnit.HOURS)))
                     .sign(Algorithm.HMAC256(SECRET));
             return token;
         } catch (UnsupportedEncodingException exception) {
