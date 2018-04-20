@@ -28,7 +28,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
             if (user.isPresent()) {
                 UserDetail userDetail = new UserDetail(user.get());
                 return new UsernamePasswordAuthenticationToken(
-                        userDetail.getUsername(), userDetail.getPassword(), userDetail.getAuthorities());
+                        userDetail, userDetail.getPassword(), userDetail.getAuthorities());
             }
         }
 

@@ -68,7 +68,7 @@ public class MultiHttpSecurityConfig {
         private AjaxAwareAuthenticationSuccessHandler authenticationSuccessHandler;
 
         @Autowired
-        private AjaxAwareAuthenticationFailureHandler authenticationFailureHandle;
+        private AjaxAwareAuthenticationFailureHandler authenticationFailureHandler;
 
         @Autowired
         private ObjectMapper objectMapper;
@@ -107,7 +107,7 @@ public class MultiHttpSecurityConfig {
         public AjaxLoginProcessingFilter ajaxLoginProcessingFilter() throws Exception {
             AjaxLoginProcessingFilter ajaxLoginProcessingFilter = new AjaxLoginProcessingFilter(
                     "/api/login",
-                    authenticationSuccessHandler, authenticationFailureHandle, objectMapper);
+                    authenticationSuccessHandler, authenticationFailureHandler, objectMapper);
             ajaxLoginProcessingFilter.setAuthenticationManager(authenticationManagerBean());
             return ajaxLoginProcessingFilter;
         }
@@ -117,7 +117,7 @@ public class MultiHttpSecurityConfig {
             JwtTokenAuthenticationProcessingFilter jwtTokenAuthenticationProcessingFilter =
                     new JwtTokenAuthenticationProcessingFilter(
                             new AntSkipPathRequestMatcher("/api/**", "/api/login"),
-                            authenticationFailureHandle);
+                            authenticationFailureHandler);
             jwtTokenAuthenticationProcessingFilter.setAuthenticationManager(authenticationManagerBean());
             return jwtTokenAuthenticationProcessingFilter;
         }
