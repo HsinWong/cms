@@ -1,6 +1,6 @@
-package com.hsinwong.cms.security;
+package com.hsinwong.cms.security.ajax;
 
-import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
@@ -33,7 +33,7 @@ public class JwtTokenAuthenticationProcessingFilter extends AbstractAuthenticati
             String jwtToken = authorizationInfo.substring("Bearer ".length(), authorizationInfo.length());
             return getAuthenticationManager().authenticate(new JwtAuthenticationToken(jwtToken));
         }
-        throw new AuthenticationServiceException("不支持的Token");
+        throw new BadCredentialsException("不支持的Token");
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.hsinwong.cms.rest;
+package com.hsinwong.cms.web;
 
 import com.hsinwong.cms.bean.Menu;
 import com.hsinwong.cms.service.MenuService;
@@ -29,10 +29,10 @@ public class ApiController {
     public void modifyPassword(@RequestParam("oldPassword") String oldPassword,
                                @RequestParam("newPassword") String newPassword,
                                HttpServletResponse response) throws IOException {
-        try {
-            userService.modifyPassword(oldPassword, newPassword);
-        } catch (UnsupportedOperationException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+        if (userService.verifyPassword(oldPassword)) {
+            userService.modifyPassword(newPassword);
+        } else {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "原密码不正确，无法修改密码");
         }
     }
 }

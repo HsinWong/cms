@@ -1,8 +1,9 @@
-package com.hsinwong.cms.security;
+package com.hsinwong.cms.security.ajax;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hsinwong.cms.util.WebUtils;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -38,14 +39,14 @@ public class AjaxLoginProcessingFilter extends AbstractAuthenticationProcessingF
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException, IOException {
-        if (!HttpMethod.POST.name().equals(request.getMethod()) || !WebUtil.isAjax(request)) {
-            throw new AuthenticationServiceException("不支持的认证方式");
+        if (!HttpMethod.POST.name().equals(request.getMethod()) || !WebUtils.isAjax(request)) {
+            throw new BadCredentialsException("不支持的认证方式");
         }
 
         UsernamePassword usernamePassword = objectMapper.readValue(request.getReader(), UsernamePassword.class);
 
         if (!StringUtils.hasText(usernamePassword.getUsername()) || !StringUtils.hasText(usernamePassword.getPassword())) {
-            throw new AuthenticationServiceException("用户名或密码为空");
+            throw new BadCredentialsException("用户名或密码为空");
         }
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(usernamePassword.getUsername(), usernamePassword.getPassword());

@@ -1,4 +1,4 @@
-package com.hsinwong.cms.security;
+package com.hsinwong.cms.security.ajax;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;

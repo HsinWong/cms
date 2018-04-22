@@ -1,14 +1,16 @@
 package com.hsinwong.cms.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hsinwong.cms.MessageConstants;
 import com.hsinwong.cms.bean.User;
+import com.hsinwong.cms.constant.MessageConstants;
 import com.hsinwong.cms.repository.UserRepository;
+import com.hsinwong.cms.security.ajax.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -35,9 +37,6 @@ import java.util.Optional;
 public class MultiHttpSecurityConfig {
 
     @Autowired
-    private MessageSource messageSource;
-
-    @Autowired
     private UserRepository userRepository;
 
     @Bean
@@ -47,7 +46,7 @@ public class MultiHttpSecurityConfig {
             if (user.isPresent()) {
                 return new UserDetail(user.get());
             } else {
-                throw new UsernameNotFoundException(messageSource.getMessage(MessageConstants.USERNAME_NOT_FOUND, new String[]{username}, Locale.getDefault()));
+                throw new UsernameNotFoundException("用户名不存在");
             }
         };
     }
@@ -56,6 +55,8 @@ public class MultiHttpSecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
+
+
 
     @Configuration
     @Order(1)

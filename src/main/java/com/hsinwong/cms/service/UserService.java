@@ -7,13 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class UserService {
-
-    @Autowired
-    private UserHelper userHelper;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -21,17 +16,14 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public void modifyPassword(String oldPassword, String newPassword) {
-        Optional<User> currentUser = userHelper.getCurrentUser();
-        if (currentUser.isPresent()) {
-            if (passwordEncoder.matches(oldPassword, currentUser.get().getPassword())) {
-                currentUser.get().setPassword(passwordEncoder.encode(newPassword));
-                userRepository.save(currentUser.get());
-            } else {
-                throw new UnsupportedOperationException("原密码不正确，无法修改密码");
-            }
-        } else {
-            throw new UnsupportedOperationException("用户不存在，无法修改密码");
-        }
+    public boolean verifyPassword(String password) {
+        User currentUser = UserHelper.getCurrentUser();
+        return passwordEncoder.matches(password, currentUser.getPassword());
+    }
+
+    public void modifyPassword(String password) {
+        User currentUser = UserHelper.getCurrentUser();
+        currentUser.setPassword(passwordEncoder.encode(password));
+        userRepository.save(currentUser);
     }
 }
