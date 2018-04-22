@@ -1,6 +1,6 @@
 package com.hsinwong.cms.security;
 
-import com.hsinwong.cms.bean.User;
+import com.hsinwong.cms.data.bean.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

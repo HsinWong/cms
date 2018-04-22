@@ -1,6 +1,6 @@
 package com.hsinwong.cms.web;
 
-import com.hsinwong.cms.bean.Menu;
+import com.hsinwong.cms.data.bean.Menu;
 import com.hsinwong.cms.service.MenuService;
 import com.hsinwong.cms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

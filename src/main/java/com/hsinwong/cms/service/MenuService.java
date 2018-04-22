@@ -1,7 +1,7 @@
 package com.hsinwong.cms.service;
 
-import com.hsinwong.cms.bean.Menu;
-import com.hsinwong.cms.repository.MenuRepository;
+import com.hsinwong.cms.data.bean.Menu;
+import com.hsinwong.cms.data.repository.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package com.hsinwong.cms.service;
 
-import com.hsinwong.cms.bean.User;
-import com.hsinwong.cms.repository.UserRepository;
+import com.hsinwong.cms.data.bean.User;
+import com.hsinwong.cms.data.repository.UserRepository;
 import com.hsinwong.cms.security.UserHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

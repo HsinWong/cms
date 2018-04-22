@@ -1,4 +1,4 @@
-package com.hsinwong.cms.bean;
+package com.hsinwong.cms.data.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonValue;

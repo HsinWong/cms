@@ -1,7 +1,7 @@
 package com.hsinwong.cms.security.ajax;
 
-import com.hsinwong.cms.bean.User;
-import com.hsinwong.cms.repository.UserRepository;
+import com.hsinwong.cms.data.bean.User;
+import com.hsinwong.cms.data.repository.UserRepository;
 import com.hsinwong.cms.security.UserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;

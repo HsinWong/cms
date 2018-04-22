@@ -1,18 +1,18 @@
-package com.hsinwong.cms.repository;
+package com.hsinwong.cms.data.repository;
 
-import com.hsinwong.cms.bean.User;
+import com.hsinwong.cms.data.bean.Menu;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RestResource;
 
-import java.util.Optional;
+import java.util.List;
 
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface MenuRepository extends CrudRepository<Menu, Long> {
 
-    Optional<User> findByUsername(String username);
+    List<Menu> findByState(Menu.State state);
 
     @Override
     @RestResource(exported = false)
-    void delete(User entity);
+    void delete(Menu entity);
 
     @Override
     @RestResource(exported = false)

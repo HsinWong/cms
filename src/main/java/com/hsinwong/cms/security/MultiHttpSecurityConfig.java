@@ -1,16 +1,13 @@
 package com.hsinwong.cms.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hsinwong.cms.bean.User;
-import com.hsinwong.cms.constant.MessageConstants;
-import com.hsinwong.cms.repository.UserRepository;
+import com.hsinwong.cms.data.bean.User;
+import com.hsinwong.cms.data.repository.UserRepository;
 import com.hsinwong.cms.security.ajax.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -29,7 +26,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.Optional;
 
 @EnableWebSecurity
@@ -97,7 +93,7 @@ public class MultiHttpSecurityConfig {
         CorsConfigurationSource corsConfigurationSource() {
             CorsConfiguration configuration = new CorsConfiguration();
             configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080"));
-            configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "PUT", "DELETE"));
+            configuration.setAllowedMethods(Arrays.asList("*"));
             configuration.setAllowedHeaders(Arrays.asList("Content-Type", "X-Requested-With", "Authorization"));
             UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
             source.registerCorsConfiguration("/api/**", configuration);
