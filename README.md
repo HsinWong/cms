@@ -2,22 +2,22 @@
 
 ## 技术栈
 
-+ Spring Boot: 自动配置，快速开发
-+ Spring Framework: IoC、AOP
-+ Spring MVC: 模型、视图、控制器
-+ Spring Security: 用户授权，权限管理
-+ Spring Data JPA: 抽象 ORM 层，进一步简化对数据库的访问
-+ Spring Data Rest: 自动映射数据库到 Rest 资源
-+ Hibernate: 简化对数据库的访问，避免大部分的 SQL 编写
-+ MySQL: 关系型数据库
-+ Jwt: 基于 JSON 的 Web Token 规范
-+ Maven: 包管理、构建工具
-+ Tomcat: Servlet 容器
++ **Spring Boot**: 自动配置，快速开发
++ **Spring Framework**: IoC、AOP
++ **Spring MVC**: 模型、视图、控制器
++ **Spring Security**: 用户授权，权限管理
++ **Spring Data JPA**: 抽象 ORM 层，进一步简化对数据库的访问
++ **Spring Data Rest**: 自动映射数据库到 Rest 资源
++ **Hibernate**: 简化对数据库的访问，避免大部分的 SQL 编写
++ **MySQL**: 关系型数据库
++ **Jwt**: 基于 JSON 的 Web Token 规范
++ **Maven**: 包管理、构建工具
++ **Tomcat**: Servlet 容器
 
 ## 环境要求
 
-+ Java: 1.8+
-+ MySQL: 5.7+
++ **Java**: 1.8+
++ **MySQL**: 5.7+
 
 ## 参数配置
 
